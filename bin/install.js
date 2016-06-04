@@ -74,9 +74,7 @@ let scripts = {
   'test': './node_modules/.bin/nyc ./node_modules/.bin/ava',
   'lint': './node_modules/.bin/eslint .',
   'lint-english': './node_modules/.bin/write-good *.md && ./node_modules/.bin/alex',
-  'coverage-browser': './node_modules/.bin/nyc report --reporter=html ./node_modules/.bin/ava && open ./coverage/index.html',
   'coverage': './node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov && ./node_modules/.bin/codecov',
-  'quality': './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/codeclimate-test-reporter',
 }
 
 // Load existing package.json file, and set scripts property.

@@ -7,9 +7,7 @@
     "test": "./node_modules/.bin/nyc ./node_modules/.bin/ava",
     "lint": "./node_modules/.bin/eslint .",
     "lint-english": "./node_modules/.bin/write-good *.md && ./node_modules/.bin/alex",
-    "coverage-browser": "./node_modules/.bin/nyc report --reporter=html ./node_modules/.bin/ava && open ./coverage/index.html",
-    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov && ./node_modules/.bin/codecov",
-    "quality": "./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/codeclimate-test-reporter"
+    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov && ./node_modules/.bin/codecov"
   },
   "repository": {
     "type": "git",
@@ -28,6 +26,7 @@
     "alex": "^3.0.0",
     "ava": "^0.15.2",
     "babel-eslint": "^6.0.4",
+    "codecov": "^1.0.1",
     "eslint": "^2.11.1",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.8.1",
