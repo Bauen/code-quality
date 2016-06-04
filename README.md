@@ -13,6 +13,7 @@ The following npm scripts allow you to easily execute these tools in a sensible 
 * `npm run lint` - Runs eslint on all code.
 * `npm run lint-english` - Runs documentation through static language analysis tools.
 * `npm run coverage` - Generates a coverage report.
+* `npm run coverage-report` - Renders an HTML coverage report in your browser.
 
 ## Installation
 * Clone this repository.

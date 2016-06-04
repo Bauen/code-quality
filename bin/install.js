@@ -53,8 +53,9 @@ for (let i in files) {
 }
 
 // Create testing directory.
-console.log('Creating test directory.');
+console.log('Creating test and coverage directory.');
 fs.mkdirsSync(path.join(dest, 'test'));
+fs.mkdirsSync(path.join(dest, '.nyc_output'));
 
 // Install tool dependencies.
 console.log('Installing dependencies.');
@@ -74,7 +75,8 @@ let scripts = {
   'test': './node_modules/.bin/nyc ./node_modules/.bin/ava',
   'lint': './node_modules/.bin/eslint .',
   'lint-english': './node_modules/.bin/write-good *.md && ./node_modules/.bin/alex',
-  'coverage': './node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov && ./node_modules/.bin/codecov',
+  'coverage': './node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov',
+  'coverage-report': './node_modules/.bin/nyc report --reporter=html ./node_modules/.bin/ava && open ./coverage/index.html',
 }
 
 // Load existing package.json file, and set scripts property.
