@@ -13,7 +13,7 @@ const exec = require('sync-exec');
 const jsonFile = require('jsonfile');
 
 // Process arguments.
-let dest = args.d || args.destination;
+const dest = args.d || args.destination;
 
 // If a destination was not passed in, exit.
 if (typeof dest === 'undefined') {
@@ -41,13 +41,14 @@ catch (err) {
 }
 
 // Copy over configuration files.
-let files = [
+const files = [
   '.eslintrc',
   '.eslintignore',
   '.codeclimate.yml',
 ];
 
-for (let i in files) {
+let i;
+for (i = 0; i < files.length; i++) {
   console.log(`Copying over ${files[i]}.`);
   fs.copySync(files[i], path.join(dest, files[i]));
 }
@@ -59,27 +60,28 @@ fs.mkdirsSync(path.join(dest, '.nyc_output'));
 
 // Install tool dependencies.
 console.log('Installing dependencies.');
-let command = 'npm install --save-dev';
-exec(`${command} alex`, {cwd: dest});
-exec(`${command} ava`, {cwd: dest});
-exec(`${command} eslint`, {cwd: dest});
-exec(`${command} eslint-plugin-import`, {cwd: dest});
-exec(`${command} babel-eslint`, {cwd: dest});
-exec(`${command} eslint-config-airbnb-base`, {cwd: dest});
-exec(`${command} nyc`, {cwd: dest});
-exec(`${command} write-good`, {cwd: dest});
+const command = 'npm install --save-dev';
+const options = { cwd: dest };
+exec(`${command} alex`, options);
+exec(`${command} ava`, options);
+exec(`${command} eslint`, options);
+exec(`${command} eslint-plugin-import`, options);
+exec(`${command} babel-eslint`, options);
+exec(`${command} eslint-config-airbnb-base`, options);
+exec(`${command} nyc`, options);
+exec(`${command} write-good`, options);
 
 // Add helper scripts.
 console.log('Installing helper scripts');
-let scripts = {
-  'test': './node_modules/.bin/nyc ./node_modules/.bin/ava',
-  'lint': './node_modules/.bin/eslint .',
+const scripts = {
+  test: './node_modules/.bin/nyc ./node_modules/.bin/ava',
+  lint: './node_modules/.bin/eslint .',
+  coverage: './node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov',
   'lint-english': './node_modules/.bin/write-good *.md && ./node_modules/.bin/alex',
-  'coverage': './node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov',
   'coverage-report': './node_modules/.bin/nyc report --reporter=html ./node_modules/.bin/ava && open ./coverage/index.html',
 }
 
 // Load existing package.json file, and set scripts property.
-let packageJson = jsonFile.readFileSync(packageJsonPath);
+const packageJson = jsonFile.readFileSync(packageJsonPath);
 packageJson.scripts = scripts;
-jsonFile.writeFileSync(packageJsonPath, packageJson, {spaces: 2});
+jsonFile.writeFileSync(packageJsonPath, packageJson, { spaces: 2 });
